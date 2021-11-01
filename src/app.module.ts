@@ -17,6 +17,7 @@ import { join } from 'path';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { CaslModule } from './casl/casl.module';
 import config from './config';
 
 @Module({
@@ -35,6 +36,7 @@ import config from './config';
     MongooseModule.forRoot(config.MONGODB_URI, {}),
     UsersModule,
     AuthModule,
+    CaslModule,
   ],
   controllers: [AppController],
   providers: [AppService],
