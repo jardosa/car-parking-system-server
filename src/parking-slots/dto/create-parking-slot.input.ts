@@ -9,6 +9,6 @@ export class CreateParkingSlotInput {
   @Field({ defaultValue: false })
   pwdOnly?: boolean;
 
-  @Field(() => Size)
-  size: Size;
+  @Field(() => Size, { defaultValue: Size.Small })
+  size?: Size;
 }

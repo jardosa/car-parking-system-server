@@ -15,6 +15,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ParkingSlotsModule } from './parking-slots/parking-slots.module';
 import { ParkingRecordsModule } from './parking-records/parking-records.module';
+import { ParkingLotsModule } from './parking-lots/parking-lots.module';
 import config from './config';
 
 @Module({
@@ -32,6 +33,7 @@ import config from './config';
     AuthModule,
     ParkingSlotsModule,
     ParkingRecordsModule,
+    ParkingLotsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

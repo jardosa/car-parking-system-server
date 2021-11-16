@@ -41,6 +41,11 @@ interface NodeConnection {
   totalCount: Int!
 }
 
+type ParkingRecord {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type Query {
   ping: String!
   users: [User!]!
@@ -48,6 +53,8 @@ type Query {
   whoAmI: User!
   parkingSlots: ParkingSlotConnection!
   parkingSlot(id: Int!): ParkingSlot!
+  parkingRecords: [ParkingRecord!]!
+  parkingRecord(id: Int!): ParkingRecord!
 }
 
 type Mutation {
@@ -59,6 +66,9 @@ type Mutation {
   createParkingSlot(createParkingSlotInput: CreateParkingSlotInput!): ParkingSlot!
   updateParkingSlot(updateParkingSlotInput: UpdateParkingSlotInput!): ParkingSlot!
   removeParkingSlot(id: Int!): ParkingSlot!
+  createParkingRecord(createParkingRecordInput: CreateParkingRecordInput!): ParkingRecord!
+  updateParkingRecord(updateParkingRecordInput: UpdateParkingRecordInput!): ParkingRecord!
+  removeParkingRecord(id: Int!): ParkingRecord!
 }
 
 input CreateUserInput {
@@ -84,7 +94,7 @@ input LoginInput {
 input CreateParkingSlotInput {
   name: String!
   pwdOnly: Boolean = false
-  size: Size!
+  size: Size = Small
 }
 
 """Parking Size. Could be small/medium/large"""
@@ -97,6 +107,17 @@ enum Size {
 input UpdateParkingSlotInput {
   name: String
   pwdOnly: Boolean = false
-  size: Size
+  size: Size = Small
+  id: Int!
+}
+
+input CreateParkingRecordInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateParkingRecordInput {
+  """Example field (placeholder)"""
+  exampleField: Int
   id: Int!
 }
