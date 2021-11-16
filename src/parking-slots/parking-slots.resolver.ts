@@ -31,6 +31,17 @@ export class ParkingSlotsResolver {
     return this.parkingSlotsService.findOne(id);
   }
 
+  @Query(() => ParkingSlotConnection, {
+    name: 'findParkingSlotsByParkingLotId',
+  })
+  async findAllByParkingLotId(
+    @Args('id') id: string,
+  ): Promise<ParkingSlotConnection> {
+    const docs = await this.parkingSlotsService.findByLotId(id);
+
+    return { nodes: docs, totalCount: docs.length };
+  }
+
   @Mutation(() => ParkingSlot)
   updateParkingSlot(
     @Args('updateParkingSlotInput')

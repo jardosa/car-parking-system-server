@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 import Node from 'src/base/entities/Node';
 import { Size } from '../enums/size.enum';
 import { Status } from '../enums/status.enum';
@@ -16,4 +16,7 @@ export class ParkingSlot extends Node {
 
   @Field()
   pwdOnly: boolean;
+
+  @Field(() => ID)
+  parkingLotId: string;
 }

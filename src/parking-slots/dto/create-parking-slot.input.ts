@@ -1,5 +1,5 @@
 import { Size } from './../enums/size.enum';
-import { InputType, Field } from '@nestjs/graphql';
+import { InputType, Field, ID } from '@nestjs/graphql';
 
 @InputType()
 export class CreateParkingSlotInput {
@@ -11,4 +11,7 @@ export class CreateParkingSlotInput {
 
   @Field(() => Size, { defaultValue: Size.Small })
   size?: Size;
+
+  @Field(() => ID)
+  parkingLotId: string;
 }

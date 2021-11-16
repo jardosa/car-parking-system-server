@@ -24,6 +24,10 @@ export class ParkingSlotsService {
     return this.parkingSlotModel.find();
   }
 
+  async findByLotId(id: string) {
+    return this.parkingSlotModel.find({ parkingLotId: id });
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} parkingSlot`;
   }

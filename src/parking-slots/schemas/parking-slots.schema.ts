@@ -16,6 +16,9 @@ export class ParkingSlot {
 
   @Prop({ default: false })
   pwdOnly: boolean;
+
+  @Prop()
+  parkingLotId: string;
 }
 
 export const ParkingSlotSchema = SchemaFactory.createForClass(ParkingSlot);

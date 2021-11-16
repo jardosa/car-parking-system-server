@@ -10,6 +10,11 @@ import { MongooseModule } from '@nestjs/mongoose';
       { name: ParkingSlot.name, schema: ParkingSlotSchema },
     ]),
   ],
+  exports: [
+    MongooseModule.forFeature([
+      { name: ParkingSlot.name, schema: ParkingSlotSchema },
+    ]),
+  ],
   providers: [ParkingSlotsResolver, ParkingSlotsService],
 })
 export class ParkingSlotsModule {}

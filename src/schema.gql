@@ -23,6 +23,7 @@ type ParkingSlot implements Node {
   size: String!
   status: Status!
   pwdOnly: Boolean!
+  parkingLotId: ID!
 }
 
 """Parking Slot status. Could be unoccupied/occupied/unavailable"""
@@ -46,6 +47,19 @@ type ParkingRecord {
   exampleField: Int!
 }
 
+type ParkingLot implements Node {
+  _id: ID!
+
+  """Name of parking lot"""
+  name: String!
+  parkingSlots: ParkingSlotConnection
+}
+
+type ParkingLotConnection implements NodeConnection {
+  totalCount: Int!
+  nodes: [ParkingLot!]!
+}
+
 type Query {
   ping: String!
   users: [User!]!
@@ -53,8 +67,11 @@ type Query {
   whoAmI: User!
   parkingSlots: ParkingSlotConnection!
   parkingSlot(id: Int!): ParkingSlot!
+  findParkingSlotsByParkingLotId(id: String!): ParkingSlotConnection!
   parkingRecords: [ParkingRecord!]!
   parkingRecord(id: Int!): ParkingRecord!
+  parkingLots: ParkingLotConnection!
+  parkingLot(id: Int!): ParkingLot!
 }
 
 type Mutation {
@@ -69,6 +86,9 @@ type Mutation {
   createParkingRecord(createParkingRecordInput: CreateParkingRecordInput!): ParkingRecord!
   updateParkingRecord(updateParkingRecordInput: UpdateParkingRecordInput!): ParkingRecord!
   removeParkingRecord(id: Int!): ParkingRecord!
+  createParkingLot(createParkingLotInput: CreateParkingLotInput!): ParkingLot!
+  updateParkingLot(updateParkingLotInput: UpdateParkingLotInput!): ParkingLot!
+  removeParkingLot(id: Int!): ParkingLot!
 }
 
 input CreateUserInput {
@@ -95,6 +115,7 @@ input CreateParkingSlotInput {
   name: String!
   pwdOnly: Boolean = false
   size: Size = Small
+  parkingLotId: ID!
 }
 
 """Parking Size. Could be small/medium/large"""
@@ -108,6 +129,7 @@ input UpdateParkingSlotInput {
   name: String
   pwdOnly: Boolean = false
   size: Size = Small
+  parkingLotId: ID
   id: Int!
 }
 
@@ -119,5 +141,14 @@ input CreateParkingRecordInput {
 input UpdateParkingRecordInput {
   """Example field (placeholder)"""
   exampleField: Int
+  id: Int!
+}
+
+input CreateParkingLotInput {
+  name: String!
+}
+
+input UpdateParkingLotInput {
+  name: String
   id: Int!
 }
