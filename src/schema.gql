@@ -2,23 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Post implements Node {
-  _id: ID!
-  isPublished: Boolean!
-  authorId: ID!
-}
-
-interface Node {
-  _id: ID!
-}
-
-type Author {
-  _id: ID!
-  firstName: String
-  lastName: String
-  posts: [Post]!
-}
-
 type User implements Node {
   _id: ID!
   firstName: String!
@@ -26,54 +9,56 @@ type User implements Node {
   email: String!
 }
 
+interface Node {
+  _id: ID!
+}
+
 type Auth {
   access_token: String!
 }
 
+type ParkingSlot implements Node {
+  _id: ID!
+  name: String!
+  size: String!
+  status: Status!
+  pwdOnly: Boolean!
+}
+
+"""Parking Slot status. Could be unoccupied/occupied/unavailable"""
+enum Status {
+  Unoccupied
+  Occupied
+  Unavailable
+}
+
+type ParkingSlotConnection implements NodeConnection {
+  totalCount: Int!
+  nodes: [ParkingSlot!]!
+}
+
+interface NodeConnection {
+  totalCount: Int!
+}
+
 type Query {
-  author(id: Int!): Author!
-  posts: [Post!]!
-  post(id: Int!): Post!
   ping: String!
   users: [User!]!
   userById(id: String!): User!
   whoAmI: User!
+  parkingSlots: ParkingSlotConnection!
+  parkingSlot(id: Int!): ParkingSlot!
 }
 
 type Mutation {
-  createAuthor(createAuthorInput: CreateAuthorInput!): Author!
-  updateAuthor(updateAuthorInput: UpdateAuthorInput!): Author!
-  removeAuthor(id: Int!): Author!
-  createPost(createPostInput: CreatePostInput!): Post!
-  updatePost(updatePostInput: UpdatePostInput!): Post!
-  removePost(id: Int!): Post!
   echo(message: String!): String!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
   login(loginInput: LoginInput!): Auth!
-}
-
-input CreateAuthorInput {
-  firstName: String
-  lastName: String = ""
-}
-
-input UpdateAuthorInput {
-  firstName: String
-  lastName: String = ""
-  id: Int!
-}
-
-input CreatePostInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdatePostInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  createParkingSlot(createParkingSlotInput: CreateParkingSlotInput!): ParkingSlot!
+  updateParkingSlot(updateParkingSlotInput: UpdateParkingSlotInput!): ParkingSlot!
+  removeParkingSlot(id: Int!): ParkingSlot!
 }
 
 input CreateUserInput {
@@ -94,4 +79,24 @@ input UpdateUserInput {
 input LoginInput {
   email: String!
   password: String!
+}
+
+input CreateParkingSlotInput {
+  name: String!
+  pwdOnly: Boolean = false
+  size: Size!
+}
+
+"""Parking Size. Could be small/medium/large"""
+enum Size {
+  Small
+  Medium
+  Large
+}
+
+input UpdateParkingSlotInput {
+  name: String
+  pwdOnly: Boolean = false
+  size: Size
+  id: Int!
 }

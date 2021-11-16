@@ -8,24 +8,18 @@ import {
 } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
-import { CatsModule } from './cats/cats.module';
 import { GraphQLModule } from '@nestjs/graphql';
-import { AuthorModule } from './author/author.module';
-import { PostsModule } from './posts/posts.module';
 import { join } from 'path';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { CaslModule } from './casl/casl.module';
+import { ParkingSlotsModule } from './parking-slots/parking-slots.module';
+import { ParkingRecordsModule } from './parking-records/parking-records.module';
 import config from './config';
 
 @Module({
   imports: [
-    CatsModule,
-    AuthorModule,
     DefaultResolver,
-    PostsModule,
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: true,
@@ -36,7 +30,8 @@ import config from './config';
     MongooseModule.forRoot(config.MONGODB_URI, {}),
     UsersModule,
     AuthModule,
-    CaslModule,
+    ParkingSlotsModule,
+    ParkingRecordsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
