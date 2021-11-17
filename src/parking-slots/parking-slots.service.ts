@@ -4,6 +4,7 @@ import { CreateParkingSlotInput } from './dto/create-parking-slot.input';
 import { UpdateParkingSlotInput } from './dto/update-parking-slot.input';
 import { ParkingSlot } from './schemas/parking-slots.schema';
 import { Model } from 'mongoose';
+import * as mongoose from 'mongoose';
 
 @Injectable()
 export class ParkingSlotsService {
@@ -24,7 +25,7 @@ export class ParkingSlotsService {
     return this.parkingSlotModel.find();
   }
 
-  async findByLotId(id: string) {
+  async findByLotId(id) {
     return this.parkingSlotModel.find({ parkingLotId: id });
   }
 

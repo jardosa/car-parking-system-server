@@ -17,6 +17,6 @@ export class ParkingSlot extends Node {
   @Field()
   pwdOnly: boolean;
 
-  @Field(() => ID)
-  parkingLotId: string;
+  @Field(() => ID, { nullable: true })
+  parkingLotId?: string;
 }

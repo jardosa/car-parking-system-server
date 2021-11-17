@@ -59,9 +59,7 @@ export class ParkingLotsResolver {
   }
 
   @ResolveField(() => ParkingSlotConnection)
-  async parkingSlots(
-    @Parent() parkingLot: ParkingLot,
-  ): Promise<ParkingSlotConnection> {
+  async parkingSlots(@Parent() parkingLot: ParkingLot) {
     const { _id } = parkingLot;
     const docs = await this.parkingSlotsService.findByLotId(_id);
     return { nodes: docs, totalCount: docs.length };

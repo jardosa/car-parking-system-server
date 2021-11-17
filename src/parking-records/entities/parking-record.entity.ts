@@ -1,7 +1,23 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import {
+  ObjectType,
+  Field,
+  Int,
+  ID,
+  GraphQLISODateTime,
+} from '@nestjs/graphql';
+import Node from 'src/base/entities/Node';
 
-@ObjectType()
-export class ParkingRecord {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+@ObjectType({ implements: Node })
+export class ParkingRecord extends Node {
+  @Field()
+  plateNumber: string;
+
+  @Field(() => ID)
+  parkingSlotId: string;
+
+  @Field(() => Int, { nullable: true })
+  parkingFee?: number;
+
+  @Field(() => GraphQLISODateTime)
+  timeIn: string;
 }

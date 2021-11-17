@@ -1,19 +1,32 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateParkingRecordInput } from './dto/create-parking-record.input';
 import { UpdateParkingRecordInput } from './dto/update-parking-record.input';
+import { ParkingRecord } from './schemas/parking-records.schema';
 
 @Injectable()
 export class ParkingRecordsService {
-  create(createParkingRecordInput: CreateParkingRecordInput) {
-    return 'This action adds a new parkingRecord';
+  constructor(
+    @InjectModel(ParkingRecord.name)
+    private parkingRecordModel: Model<ParkingRecord>,
+  ) {}
+
+  async create(
+    createParkingRecordInput: CreateParkingRecordInput,
+  ): Promise<ParkingRecord> {
+    const createParkingRecord = await this.parkingRecordModel.create(
+      createParkingRecordInput,
+    );
+    return createParkingRecord.save();
   }
 
-  findAll() {
-    return `This action returns all parkingRecords`;
+  async findAll() {
+    return this.parkingRecordModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} parkingRecord`;
+  async findOne(id: number) {
+    return this.parkingRecordModel.findById(id);
   }
 
   update(id: number, updateParkingRecordInput: UpdateParkingRecordInput) {

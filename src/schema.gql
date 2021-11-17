@@ -23,7 +23,7 @@ type ParkingSlot implements Node {
   size: String!
   status: Status!
   pwdOnly: Boolean!
-  parkingLotId: ID!
+  parkingLotId: ID
 }
 
 """Parking Slot status. Could be unoccupied/occupied/unavailable"""
@@ -42,9 +42,22 @@ interface NodeConnection {
   totalCount: Int!
 }
 
-type ParkingRecord {
-  """Example field (placeholder)"""
-  exampleField: Int!
+type ParkingRecord implements Node {
+  _id: ID!
+  plateNumber: String!
+  parkingSlotId: ID!
+  parkingFee: Int
+  timeIn: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ParkingRecordConnection implements NodeConnection {
+  totalCount: Int!
+  nodes: [ParkingRecord!]!
 }
 
 type ParkingLot implements Node {
@@ -68,7 +81,7 @@ type Query {
   parkingSlots: ParkingSlotConnection!
   parkingSlot(id: Int!): ParkingSlot!
   findParkingSlotsByParkingLotId(id: String!): ParkingSlotConnection!
-  parkingRecords: [ParkingRecord!]!
+  parkingRecords: ParkingRecordConnection!
   parkingRecord(id: Int!): ParkingRecord!
   parkingLots: ParkingLotConnection!
   parkingLot(id: Int!): ParkingLot!
@@ -134,13 +147,13 @@ input UpdateParkingSlotInput {
 }
 
 input CreateParkingRecordInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  plateNumber: String!
+  parkingSlotId: ID!
 }
 
 input UpdateParkingRecordInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  plateNumber: String
+  parkingSlotId: ID
   id: Int!
 }
 

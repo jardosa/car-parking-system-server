@@ -18,7 +18,7 @@ export class ParkingSlotsResolver {
   }
 
   @Query(() => ParkingSlotConnection, { name: 'parkingSlots' })
-  async findAll(): Promise<ParkingSlotConnection> {
+  async findAll() {
     const docs = await this.parkingSlotsService.findAll();
     return {
       nodes: docs,
@@ -34,9 +34,7 @@ export class ParkingSlotsResolver {
   @Query(() => ParkingSlotConnection, {
     name: 'findParkingSlotsByParkingLotId',
   })
-  async findAllByParkingLotId(
-    @Args('id') id: string,
-  ): Promise<ParkingSlotConnection> {
+  async findAllByParkingLotId(@Args('id') id: string) {
     const docs = await this.parkingSlotsService.findByLotId(id);
 
     return { nodes: docs, totalCount: docs.length };

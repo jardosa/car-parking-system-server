@@ -3,19 +3,27 @@ import { ParkingRecordsService } from './parking-records.service';
 import { ParkingRecord } from './entities/parking-record.entity';
 import { CreateParkingRecordInput } from './dto/create-parking-record.input';
 import { UpdateParkingRecordInput } from './dto/update-parking-record.input';
+import ParkingRecordConnection from './entities/parking-record-connection.entity';
 
 @Resolver(() => ParkingRecord)
 export class ParkingRecordsResolver {
   constructor(private readonly parkingRecordsService: ParkingRecordsService) {}
 
   @Mutation(() => ParkingRecord)
-  createParkingRecord(@Args('createParkingRecordInput') createParkingRecordInput: CreateParkingRecordInput) {
+  createParkingRecord(
+    @Args('createParkingRecordInput')
+    createParkingRecordInput: CreateParkingRecordInput,
+  ) {
     return this.parkingRecordsService.create(createParkingRecordInput);
   }
 
-  @Query(() => [ParkingRecord], { name: 'parkingRecords' })
-  findAll() {
-    return this.parkingRecordsService.findAll();
+  @Query(() => ParkingRecordConnection, { name: 'parkingRecords' })
+  async findAll() {
+    const docs = await this.parkingRecordsService.findAll();
+    return {
+      totalCount: docs.length,
+      nodes: docs,
+    };
   }
 
   @Query(() => ParkingRecord, { name: 'parkingRecord' })
@@ -24,8 +32,14 @@ export class ParkingRecordsResolver {
   }
 
   @Mutation(() => ParkingRecord)
-  updateParkingRecord(@Args('updateParkingRecordInput') updateParkingRecordInput: UpdateParkingRecordInput) {
-    return this.parkingRecordsService.update(updateParkingRecordInput.id, updateParkingRecordInput);
+  updateParkingRecord(
+    @Args('updateParkingRecordInput')
+    updateParkingRecordInput: UpdateParkingRecordInput,
+  ) {
+    return this.parkingRecordsService.update(
+      updateParkingRecordInput.id,
+      updateParkingRecordInput,
+    );
   }
 
   @Mutation(() => ParkingRecord)
