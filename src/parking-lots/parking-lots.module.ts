@@ -7,12 +7,7 @@ import { ParkingLot, ParkingLotSchema } from './schemas/parking-lots.schema';
 import { ParkingSlotsModule } from 'src/parking-slots/parking-slots.module';
 
 @Module({
-  imports: [
-    ParkingSlotsModule,
-    MongooseModule.forFeature([
-      { name: ParkingLot.name, schema: ParkingLotSchema },
-    ]),
-  ],
+  imports: [ParkingSlotsModule, MongooseModule.forFeature([{ name: ParkingLot.name, schema: ParkingLotSchema }])],
 
   providers: [ParkingLotsResolver, ParkingLotsService, ParkingSlotsService],
 })

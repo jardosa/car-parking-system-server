@@ -1,10 +1,4 @@
-import {
-  ObjectType,
-  Field,
-  Int,
-  ID,
-  GraphQLISODateTime,
-} from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID, GraphQLISODateTime } from '@nestjs/graphql';
 import Node from 'src/base/entities/Node';
 
 @ObjectType({ implements: Node })

@@ -36,10 +36,7 @@ export class ParkingRecordsResolver {
     @Args('updateParkingRecordInput')
     updateParkingRecordInput: UpdateParkingRecordInput,
   ) {
-    return this.parkingRecordsService.update(
-      updateParkingRecordInput.id,
-      updateParkingRecordInput,
-    );
+    return this.parkingRecordsService.update(updateParkingRecordInput.id, updateParkingRecordInput);
   }
 
   @Mutation(() => ParkingRecord)

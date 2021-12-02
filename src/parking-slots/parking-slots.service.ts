@@ -8,16 +8,10 @@ import * as mongoose from 'mongoose';
 
 @Injectable()
 export class ParkingSlotsService {
-  constructor(
-    @InjectModel(ParkingSlot.name) private parkingSlotModel: Model<ParkingSlot>,
-  ) {}
+  constructor(@InjectModel(ParkingSlot.name) private parkingSlotModel: Model<ParkingSlot>) {}
 
-  async create(
-    createParkingSlotInput: CreateParkingSlotInput,
-  ): Promise<ParkingSlot> {
-    const createdParkingSlot = await this.parkingSlotModel.create(
-      createParkingSlotInput,
-    );
+  async create(createParkingSlotInput: CreateParkingSlotInput): Promise<ParkingSlot> {
+    const createdParkingSlot = await this.parkingSlotModel.create(createParkingSlotInput);
     return createdParkingSlot.save();
   }
 

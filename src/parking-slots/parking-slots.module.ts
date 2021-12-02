@@ -5,16 +5,8 @@ import { ParkingSlotsResolver } from './parking-slots.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: ParkingSlot.name, schema: ParkingSlotSchema },
-    ]),
-  ],
-  exports: [
-    MongooseModule.forFeature([
-      { name: ParkingSlot.name, schema: ParkingSlotSchema },
-    ]),
-  ],
+  imports: [MongooseModule.forFeature([{ name: ParkingSlot.name, schema: ParkingSlotSchema }])],
+  exports: [MongooseModule.forFeature([{ name: ParkingSlot.name, schema: ParkingSlotSchema }])],
   providers: [ParkingSlotsResolver, ParkingSlotsService],
 })
 export class ParkingSlotsModule {}

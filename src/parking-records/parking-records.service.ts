@@ -12,12 +12,8 @@ export class ParkingRecordsService {
     private parkingRecordModel: Model<ParkingRecord>,
   ) {}
 
-  async create(
-    createParkingRecordInput: CreateParkingRecordInput,
-  ): Promise<ParkingRecord> {
-    const createParkingRecord = await this.parkingRecordModel.create(
-      createParkingRecordInput,
-    );
+  async create(createParkingRecordInput: CreateParkingRecordInput): Promise<ParkingRecord> {
+    const createParkingRecord = await this.parkingRecordModel.create(createParkingRecordInput);
     return createParkingRecord.save();
   }
 

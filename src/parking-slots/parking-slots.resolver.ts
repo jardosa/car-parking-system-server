@@ -45,10 +45,7 @@ export class ParkingSlotsResolver {
     @Args('updateParkingSlotInput')
     updateParkingSlotInput: UpdateParkingSlotInput,
   ) {
-    return this.parkingSlotsService.update(
-      updateParkingSlotInput.id,
-      updateParkingSlotInput,
-    );
+    return this.parkingSlotsService.update(updateParkingSlotInput.id, updateParkingSlotInput);
   }
 
   @Mutation(() => ParkingSlot)

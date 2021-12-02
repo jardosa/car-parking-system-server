@@ -1,14 +1,6 @@
 import ParkingSlotConnection from 'src/parking-slots/entities/parking-slot-connection.entity';
 import { ParkingSlotsService } from './../parking-slots/parking-slots.service';
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  Int,
-  ResolveField,
-  Parent,
-} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { ParkingLotsService } from './parking-lots.service';
 import { ParkingLot } from './entities/parking-lot.entity';
 import { CreateParkingLotInput } from './dto/create-parking-lot.input';
@@ -23,9 +15,7 @@ export class ParkingLotsResolver {
   ) {}
 
   @Mutation(() => ParkingLot)
-  createParkingLot(
-    @Args('createParkingLotInput') createParkingLotInput: CreateParkingLotInput,
-  ) {
+  createParkingLot(@Args('createParkingLotInput') createParkingLotInput: CreateParkingLotInput) {
     return this.parkingLotsService.create(createParkingLotInput);
   }
 
@@ -44,13 +34,8 @@ export class ParkingLotsResolver {
   }
 
   @Mutation(() => ParkingLot)
-  updateParkingLot(
-    @Args('updateParkingLotInput') updateParkingLotInput: UpdateParkingLotInput,
-  ) {
-    return this.parkingLotsService.update(
-      updateParkingLotInput.id,
-      updateParkingLotInput,
-    );
+  updateParkingLot(@Args('updateParkingLotInput') updateParkingLotInput: UpdateParkingLotInput) {
+    return this.parkingLotsService.update(updateParkingLotInput.id, updateParkingLotInput);
   }
 
   @Mutation(() => ParkingLot)

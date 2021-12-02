@@ -7,15 +7,9 @@ import { ParkingLot } from './schemas/parking-lots.schema';
 
 @Injectable()
 export class ParkingLotsService {
-  constructor(
-    @InjectModel(ParkingLot.name) private parkingLotModel: Model<ParkingLot>,
-  ) {}
-  async create(
-    createParkingLotInput: CreateParkingLotInput,
-  ): Promise<ParkingLot> {
-    const createdParkingLot = await this.parkingLotModel.create(
-      createParkingLotInput,
-    );
+  constructor(@InjectModel(ParkingLot.name) private parkingLotModel: Model<ParkingLot>) {}
+  async create(createParkingLotInput: CreateParkingLotInput): Promise<ParkingLot> {
+    const createdParkingLot = await this.parkingLotModel.create(createParkingLotInput);
     return createdParkingLot.save();
   }
 

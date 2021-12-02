@@ -1,11 +1,6 @@
 import { DefaultResolver } from './default-resolvers/default-resolvers.resolver';
 import { logger, LoggerMiddleware } from './middleware/logger.middleware';
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -40,8 +35,6 @@ import config from './config';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(logger)
-      .forRoutes({ path: 'cats', method: RequestMethod.GET });
+    consumer.apply(logger).forRoutes({ path: 'cats', method: RequestMethod.GET });
   }
 }
